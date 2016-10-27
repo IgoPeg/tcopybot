@@ -1,5 +1,9 @@
-# TRADES DIREKT KOPIEREN 
-Wieso ist dieser Bot gebaut worden? Leider ist es oft sehr umständlich den gesetzten Trade schnell genug zu kopieren um diesen mit anderen Leuten zu teilen. Dabei vergehen sehr viele wertvolle Sekunden, die für einen guten Einstieg nötig sind. Hierbei soll dieser kleine Bot helfen. Nach jedem Trade erhält man die Möglichkeit einen Text mit den nötigen Trade-Informationen zu kopieren.
+# Trade Copy Bot
+Wieso ist dieser Bot gebaut worden? Leider ist es oft sehr umständlich, die eigen gesetzten Trade-Informationen schnell genug zu kopieren, um diesen mit anderen Leuten zu teilen. 
+Dabei vergehen sehr viele wertvolle Sekunden, die für einen guten Einstieg für andere in den Trade nötig sind. 
+Hierbei soll dieser kleine Bot helfen. Nach jedem Trade erhält man die Möglichkeit die nötigen Trade-Informationen zu kopieren um diese danach teilen zu können.
+
+z.B.: "EUR USD put 12:45 1.09220"
 
 ## Haftungsausschluss
 Die Benutzung dieses Bots erfolgt auf eigene Gefahr! Ich übernehme keine Haftung für jegliche Verluste oder Fehlfunktionen durch den Bot.
@@ -15,27 +19,26 @@ javascript:/*1.0.0*/var _0xd7bb=["\x43\x6F\x70\x79\x20\x74\x6F\x20\x63\x6C\x69\x
 ## Anleitung
 1. Speichere den oben angezeigten Code als Lesezeichen
 2. Gehe auf die Trading-Plattform Deines Brokers
-3. Drück auf das gespeicherte Lesezeigen in deinem Browser
-4. Wenn Du nun ein Trade machst, wird der Trade als Text für dich zum Kopieren angezeigt. <br/>
-Beispiel: EUR USD put 12:45 1.09220
+3. Drück auf das gespeicherte Lesezeichen in Deinem Browser
+4. Wenn Du nun ein Trade machst, wird der Trade für Dich als Text zum Kopieren angezeigt.<br/>Beispiel: EUR USD put 12:45 1.09220
 5. Happy Trading & Sharing
 
 
-# FAQ:
+## FAQ:
 
-## Wieso ist der Code so verschlüsselt?
+### Wieso ist der Code so verschlüsselt?
 In die Lesezeichen darf man normalerweise keinen normalen Javascript-Code einfügen. Deshalb müssen die jeweilgen Befehle in normale Textzeichen umgewandelt werden.
 Diese Zeichen werden dann beim Ausführen des Lesezeichens vom Browser interpretiert.
 
-## Wie funktioniert der Bot
+### Wie funktioniert der Bot
 Beim Aufruf des Lesezeichens, startet das Javascript auf der jeweilige geöffneten Webseite.
 Bei bestimmten Interaktionen (Start eines Trades) gibt das Javascript den zu kopierenden Trade-Text frei.
 
-## Wie speichere ich den Button in meine Lesezeichen?
+### Wie speichere ich den Button in meine Lesezeichen?
 1. Erstellen Sie manuell ein neues Lesezeichen. (google hilft)
 2. Die Bezeichnung des Lesezeichens kannst Du Dir aussuchen. Als URL fügst Du den oben gezeigten Code ein.
 
-## Was bedeuten die einzelnen Werte in dem zu kopierenden Text?
+### Was bedeuten die einzelnen Werte in dem zu kopierenden Text?
 z.B. EUR USD put 12:45 1.09220<br/>
 EUR USD = Name des Assets. <br/>
 put = Richtung des Trades<br/>
