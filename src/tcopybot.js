@@ -26,7 +26,9 @@ void((function (d) {
   }
 
   function copyToClipboard(text) {
-    setTimeout(function() { window.prompt("Copy to clipboard: Ctrl+C, Enter", text); }, 1000);
+    setTimeout(function () {
+      window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
+    }, 1000);
   }
 
   var run = function () {
@@ -38,7 +40,7 @@ void((function (d) {
       //If 24Option
       if (brokerHostname.indexOf('24option') > -1) {
 
-        var getAsset = function() {
+        var getAsset = function () {
 
           var optionsContainer = $('.options_container');
 
@@ -77,8 +79,10 @@ void((function (d) {
 
         actionButton.on('click', function () {
 
+          //Holen des ausgewählten Trades
           var data = getAsset();
 
+          //Generieren des zu kopierenden Text wenn alle Informationen da sind.
           if (data.asset && data.direction && data.until && data.entry) {
             var text = data.asset + ' ' + data.direction + ' ' + data.until + ' ' + data.entry;
             copyToClipboard(text.replace(/\s\s+/g, ' '));
