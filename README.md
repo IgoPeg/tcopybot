@@ -30,7 +30,7 @@ javascript:/*1.0.0*/var _0xd7bb=["\x43\x6F\x70\x79\x20\x74\x6F\x20\x63\x6C\x69\x
 In die Lesezeichen darf man normalerweise keinen normalen Javascript-Code einfügen. Deshalb müssen die jeweilgen Befehle in normale Textzeichen umgewandelt werden.
 Diese Zeichen werden dann beim Ausführen des Lesezeichens vom Browser interpretiert.
 
-### Wie funktioniert der Bot
+### Wie funktioniert der Bot?
 Beim Aufruf des Lesezeichens, startet das Javascript auf der jeweilige geöffneten Webseite.
 Bei bestimmten Interaktionen (Start eines Trades) gibt das Javascript den zu kopierenden Trade-Text frei.
 
