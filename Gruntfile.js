@@ -4,7 +4,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         jshint: {
-            files: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js'],
+            files: ['Gruntfile.js', 'src/**/*.js'],
             options: {
                 globals: {
                     jQuery: true
@@ -36,9 +36,6 @@ module.exports = function(grunt) {
                 files: {
                     'build/min.js': [
                         'build/uglify.js'
-                    ],
-                    'build/trackingbot.js': [
-                        'src/trackingbot.js'
                     ]
                 }
             }
@@ -58,53 +55,16 @@ module.exports = function(grunt) {
                             replacement: function(match) {
                                 return grunt.file.readJSON('package.json').version||0;
                             }
-                        },
-                        {
-                            match: 'QS_JS_CODE',
-                            replacement: function(match) {
-                                return grunt.file.read('src/qsiqbot.js');
-                            }
-                        },
-                        {
-                            match: 'DATA1',
-                            replacement: function(match) {
-                                return grunt.file.read('data1');
-                            }
                         }
-                        //,
-                        //{
-                        //    match: 'DATA2',
-                        //    replacement: function(match) {
-                        //        return grunt.file.read('data2');
-                        //    }
-                        //},
-                        //{
-                        //    match: 'DATA3',
-                        //    replacement: function(match) {
-                        //        return grunt.file.read('data3');
-                        //    }
-                        //},
-                        //{
-                        //    match: 'DATA4',
-                        //    replacement: function(match) {
-                        //        return grunt.file.read('data4');
-                        //    }
-                        //},
-                        //{
-                        //    match: 'DATA5',
-                        //    replacement: function(match) {
-                        //        return grunt.file.read('data5');
-                        //    }
-                        //}
                     ]
                 },
                 files: [
-                    {expand: true, flatten: true, src: ['index.html','testing.html'], dest: 'build/'}
+                    {expand: true, flatten: true, src: ['index.html'], dest: 'build/'}
                 ]
             }
         },
         watch: {
-            files: ['<%= jshint.files %>', '*.html','data*'],
+            files: ['<%= jshint.files %>', '*.html'],
             tasks: ['default']
         }
     });
