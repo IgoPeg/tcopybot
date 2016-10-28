@@ -34,7 +34,7 @@ Diese Zeichen werden dann beim Ausführen des Lesezeichens vom Browser interpret
 Beim Aufruf des Lesezeichens, startet das Javascript auf der jeweilige geöffneten Webseite.
 Bei bestimmten Interaktionen (Start eines Trades) gibt das Javascript den zu kopierenden Trade-Text frei.
 
-### Wie speichere ich den Button in meine Lesezeichen?
+### Wie speichere ich den Lesezeuchen-Code in meine Lesezeichen?
 1. Erstellen Sie manuell ein neues Lesezeichen. (google hilft)
 2. Die Bezeichnung des Lesezeichens kannst Du Dir aussuchen. Als URL fügst Du den oben gezeigten Code ein.
 
