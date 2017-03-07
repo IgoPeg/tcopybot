@@ -9,7 +9,7 @@ z.B.: "EUR USD put 12:45 1.09220"
 Die Benutzung dieses Bots erfolgt auf eigene Gefahr! Ich übernehme keine Haftung für jegliche Verluste oder Fehlfunktionen durch den Bot.
 
 ## Folgende Broker werden unterstützt.
-24Option
+24Option (vom 07.03.2017)
 
 ## Lesezeichen-Code
 ```html
