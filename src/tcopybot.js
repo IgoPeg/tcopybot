@@ -31,6 +31,73 @@ void((function (d) {
     }, 1000);
   }
 
+  function getAsset() {
+
+    var optionsContainer = $('#bmBidder');
+
+    var data = [];
+    data.asset = optionsContainer.find('.bmTradingBoxAsset').text();
+    data.entry = optionsContainer.find('.bmOptionPrice>.bmPriceValue').text();
+    data.until = $('#bmOptionSelector .bmUiSelectLabelText.bmUiSelectDynamicLabel').text();
+    return data;
+
+  }
+
+
+  function initAsset() {
+
+    // set Button watcher if time has changed
+    $('#bmOptionSelector ul.bmUiList>li').on('click', function () {
+      setTimeout(setButtonWatcher, 500);
+    });
+
+    setButtonWatcher();
+
+  }
+
+  function setButtonWatcher() {
+
+    // Buttons
+    var callButton = $('.bmButtonsWrapp.bmSelection1');
+    var putButton = $('.bmButtonsWrapp.bmSelection2');
+
+    callButton.on('click',function () {
+
+      //Holen des ausgewählten Trades
+      var data = getAsset();
+      data.direction = 'CALL';
+
+      //Generieren des zu kopierenden Text wenn alle Informationen da sind.
+      if (data.asset && data.direction && data.until && data.entry) {
+        var text = data.asset + ' ' + data.direction + ' ' + data.until + ' ' + data.entry;
+        copyToClipboard(text.replace(/\s\s+/g, ' '));
+      } else {
+        var error = 'Fehler beim sammeln der Trade-Daten. Es wurden nur folgende Werte gefunden: ' + data.join(data);
+        console.error(error);
+      }
+
+    });
+
+
+    putButton.on('click', function () {
+
+      //Holen des ausgewählten Trades
+      var data = getAsset();
+      data.direction = 'PUT';
+
+      //Generieren des zu kopierenden Text wenn alle Informationen da sind.
+      if (data.asset && data.direction && data.until && data.entry) {
+        var text = data.asset + ' ' + data.direction + ' ' + data.until + ' ' + data.entry;
+        copyToClipboard(text.replace(/\s\s+/g, ' '));
+      } else {
+        var error = 'Fehler beim sammeln der Trade-Daten. Es wurden nur folgende Werte gefunden: ' + data.join(data);
+        console.error(error);
+      }
+
+    });
+
+  }
+
   var run = function () {
 
     try {
@@ -40,58 +107,17 @@ void((function (d) {
       //If 24Option
       if (brokerHostname.indexOf('24option') > -1) {
 
-        var getAsset = function () {
+        var assetsContainer = $('#bmTradeGame'),
+            assetsList      = assetsContainer.find('ul.bmOptionList'),
+            assetsListItem  = assetsList.find('li.bmOption')
+          ;
 
-          var optionsContainer = $('.options_container');
-
-          var childrens = optionsContainer.children();
-
-          if (optionsContainer.length) {
-
-            if (childrens.length) {
-
-              var selectedAsset = optionsContainer.find('.option_row_container_selected');
-
-              if (selectedAsset.length) {
-
-                var data = [];
-                data.asset = selectedAsset.find('.option_row_asset').text();
-                data.direction = $('.position_type_action_button_selected').text();
-                data.entry = selectedAsset.find('.option_row_target').text();
-                data.until = selectedAsset.find('.option_row_expiry select > option:selected').text();
-                return data;
-
-              } else {
-                console.error('Kein ausgewähltes Assets gefunden.');
-              }
-
-            } else {
-              console.error('Keine Assets gefunden.');
-            }
-
-          } else {
-            console.error('Asset-Container nicht gefunden.');
-          }
-
-        };
-
-        var actionButton = $('.option_mode_buy_button');
-
-        actionButton.on('click', function () {
-
-          //Holen des ausgewählten Trades
-          var data = getAsset();
-
-          //Generieren des zu kopierenden Text wenn alle Informationen da sind.
-          if (data.asset && data.direction && data.until && data.entry) {
-            var text = data.asset + ' ' + data.direction + ' ' + data.until + ' ' + data.entry;
-            copyToClipboard(text.replace(/\s\s+/g, ' '));
-          } else {
-            var error = 'Fehler beim sammeln der Trade-Daten. Es wurden nur folgende Werte gefunden: ' + data.join(data);
-            console.error(error);
-          }
-
+        //reinit on selectAsset
+        assetsListItem.on('click', function () {
+          setTimeout(initAsset, 500);
         });
+
+        initAsset();
 
       }
 
