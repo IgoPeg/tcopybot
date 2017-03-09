@@ -41,26 +41,39 @@ void((function (d) {
 
   }
 
+  var findInterval;
+  var inizialized = false;
   function init() {
 
-    $('#bmActiveTrades').on('click', function (e) {
+    var box = $('#bmActiveTrades');
 
-      var tradeRow = $(e.target).closest('li');
+    if (box.length && !inizialized) {
 
-      if(tradeRow.length && tradeRow.hasClass('bmPosition') && e.ctrlKey) {
-        var data = getAsset(tradeRow);
+      inizialized = true;
+      clearInterval(findInterval);
 
-        //Generieren des zu kopierenden Text wenn alle Informationen da sind.
-        if (data.asset && data.direction && data.until && data.entry) {
-          var text = data.asset + ' ' + data.direction + ' ' + data.until + ' ' + data.entry;
-          copyToClipboard(text.replace(/\s\s+/g, ' '));
-        } else {
-          var error = 'Fehler beim sammeln der Trade-Daten. Es wurden nur folgende Werte gefunden: ' + data.join(data);
-          console.error(error);
+      box.on('click', function (e) {
+
+        var tradeRow = $(e.target).closest('li');
+
+        if (tradeRow.length && tradeRow.hasClass('bmPosition') && e.ctrlKey) {
+          var data = getAsset(tradeRow);
+
+          //Generieren des zu kopierenden Text wenn alle Informationen da sind.
+          if (data.asset && data.direction && data.until && data.entry) {
+            var text = data.asset + ' ' + data.direction + ' ' + data.until + ' ' + data.entry;
+            copyToClipboard(text.replace(/\s\s+/g, ' '));
+          } else {
+            var error = 'Fehler beim sammeln der Trade-Daten. Es wurden nur folgende Werte gefunden: ' + data.join(data);
+            console.error(error);
+          }
         }
-      }
 
-    });
+      });
+
+    } else {
+      findInterval = setInterval(init, 2000);
+    }
 
   }
 
