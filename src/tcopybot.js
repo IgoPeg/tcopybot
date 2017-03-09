@@ -26,72 +26,38 @@ void((function (d) {
   }
 
   function copyToClipboard(text) {
-    setTimeout(function () {
-      window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
-    }, 1000);
+    window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
   }
 
-  function getAsset() {
-
-    var optionsContainer = $('#bmBidder');
+  function getAsset(optionsContainer) {
 
     var data = [];
-    data.asset = optionsContainer.find('.bmTradingBoxAsset').text();
-    data.entry = optionsContainer.find('.bmOptionPrice>.bmPriceValue').text();
-    data.until = $('#bmOptionSelector .bmUiSelectLabelText.bmUiSelectDynamicLabel').text();
+    data.direction = (optionsContainer.hasClass('bmDown')) ? 'PUT' : 'CALL';
+    var assetText = optionsContainer.find('.bmAsset .bmCellContent').text();
+    data.asset = assetText.split(' #')[0];
+    data.entry = optionsContainer.find('.bmTarget .bmCellContent').text();
+    data.until = optionsContainer.find('.bmExpires').text();
     return data;
 
   }
 
+  function init() {
 
-  function initAsset() {
+    $('#bmActiveTrades').on('click', function (e) {
 
-    // set Button watcher if time has changed
-    $('#bmOptionSelector ul.bmUiList>li').on('click', function () {
-      setTimeout(setButtonWatcher, 500);
-    });
+      var tradeRow = $(e.target).closest('li');
 
-    setButtonWatcher();
+      if(tradeRow.length && tradeRow.hasClass('bmPosition') && e.ctrlKey) {
+        var data = getAsset(tradeRow);
 
-  }
-
-  function setButtonWatcher() {
-
-    // Buttons
-    var callButton = $('.bmButtonsWrapp.bmSelection1');
-    var putButton = $('.bmButtonsWrapp.bmSelection2');
-
-    callButton.on('click',function () {
-
-      //Holen des ausgewählten Trades
-      var data = getAsset();
-      data.direction = 'CALL';
-
-      //Generieren des zu kopierenden Text wenn alle Informationen da sind.
-      if (data.asset && data.direction && data.until && data.entry) {
-        var text = data.asset + ' ' + data.direction + ' ' + data.until + ' ' + data.entry;
-        copyToClipboard(text.replace(/\s\s+/g, ' '));
-      } else {
-        var error = 'Fehler beim sammeln der Trade-Daten. Es wurden nur folgende Werte gefunden: ' + data.join(data);
-        console.error(error);
-      }
-
-    });
-
-
-    putButton.on('click', function () {
-
-      //Holen des ausgewählten Trades
-      var data = getAsset();
-      data.direction = 'PUT';
-
-      //Generieren des zu kopierenden Text wenn alle Informationen da sind.
-      if (data.asset && data.direction && data.until && data.entry) {
-        var text = data.asset + ' ' + data.direction + ' ' + data.until + ' ' + data.entry;
-        copyToClipboard(text.replace(/\s\s+/g, ' '));
-      } else {
-        var error = 'Fehler beim sammeln der Trade-Daten. Es wurden nur folgende Werte gefunden: ' + data.join(data);
-        console.error(error);
+        //Generieren des zu kopierenden Text wenn alle Informationen da sind.
+        if (data.asset && data.direction && data.until && data.entry) {
+          var text = data.asset + ' ' + data.direction + ' ' + data.until + ' ' + data.entry;
+          copyToClipboard(text.replace(/\s\s+/g, ' '));
+        } else {
+          var error = 'Fehler beim sammeln der Trade-Daten. Es wurden nur folgende Werte gefunden: ' + data.join(data);
+          console.error(error);
+        }
       }
 
     });
@@ -106,19 +72,7 @@ void((function (d) {
 
       //If 24Option
       if (brokerHostname.indexOf('24option') > -1) {
-
-        var assetsContainer = $('#bmTradeGame'),
-            assetsList      = assetsContainer.find('ul.bmOptionList'),
-            assetsListItem  = assetsList.find('li.bmOption')
-          ;
-
-        //reinit on selectAsset
-        assetsListItem.on('click', function () {
-          setTimeout(initAsset, 500);
-        });
-
-        initAsset();
-
+        init();
       }
 
     } catch ($e) {
@@ -129,28 +83,6 @@ void((function (d) {
 
   };
 
-  var versuchCount = 1;
-  var getScope = function () {
-
-    // var scope = angular.element('body').scope();
-
-    if (true) {
-      run();
-    } else {
-
-      if (versuchCount >= 3) {
-        console.error('Scope wurde nach ' + versuchCount + ' versuchen nicht gefunden, script bricht ab.');
-      } else {
-        versuchCount++;
-        console.info('Versuch ' + versuchCount + ' $scope konnte nicht gefunden werden, versuche nochmal nochmal');
-
-        setTimeout(function () {
-          getScope();
-        }, 3000);
-      }
-    }
-
-  };
-  getScope();
+  run();
 
 })(document));
